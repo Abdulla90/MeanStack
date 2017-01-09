@@ -72,7 +72,6 @@ LoginService.register = function(req,res){
 LoginService.NewRegister = function(req,res){
 
 	var obj = {
-
 		name:req.body.username,
 		password:req.body.password,
 		email:req.body.email
