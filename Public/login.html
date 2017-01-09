@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<link href="/css/style.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" scr="/js/main.js"></script>
+</head>
+
+</body>
+<div class="login-page">
+  <div class="form">
+   
+    
+
+    <form class="login-form" method="post" action="/login">
+      <input type="text" placeholder="username" name="username"/>
+      <input type="password" placeholder="password" name="password"/>
+      <input id="btn1"  type="submit" value="login" />
+      <p class="error-msg">{{msg}}</p>
+      <p class="message">Not registered? <a href="/register">Create an account</a></p>
+    </form>
+  
+  </div>
+</div>
+
+</body>
+
+</html>
