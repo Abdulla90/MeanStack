@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>Blogs-Index </title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -9,6 +9,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   
 <link href="/css/blog.css" rel="stylesheet" type="text/css">
+<!-- <link href="/css/bootstrap.css" rel="stylesheet" type="text/css"> -->
 </head>
 <body>
 <nav class="navbar navbar-inverse">
@@ -19,17 +20,17 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="#">STARK</a>
+      <!-- <a class="navbar-brand" href="#">STARK</a> -->
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li class="active"><a href="#">Home</a></li>
         <li><a href="#">About</a></li>
-        <li><a href="#">Blogs</a></li>
+        <li><a href="#">Profile</a></li>
         <li><a href="#">Contact</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Sign-out</a></li>
       </ul>
     </div>
   </div>
@@ -37,12 +38,14 @@
 <div class="container-fluid">
   <div class="row content">
     <div class="col-sm-3 sidenav">
-      <h4>MEAN's  Blog</h4>
+      <h4>Featured Blogs</h4>
       <ul class="nav nav-pills nav-stacked">
-        <li class="active"><a href="#section1">Home</a></li>
-        <li><a href="#section2">Friends</a></li>
-        <li><a href="#section3">Family</a></li>
-        <li><a href="#section3">Photos</a></li>
+        <li class="active"><a href="#section1">your Blogs</a></li>
+        <li><a href="#section2">Food Blogs</a></li>
+        <li><a href="#section3">Travel Blogs</a></li>
+        <li><a href="#section3">Technology Blogs</a></li>
+        <li><a href="#section3">Fashion Blogs</a></li>
+          <li><a href="#section3">Mobile & Gadgets</a></li>
       </ul><br>
       <div class="input-group">
         <input type="text" class="form-control" placeholder="Search Blog..">
@@ -55,6 +58,30 @@
     </div>
 
     <div class="col-sm-9">
+    <h2>Add Your Blog</h2>
+     <form method="post" action="#">
+        <div class="form-group">
+          <label for="Titel">Blog Title:</label>
+          <input type="text" class="form-control" name="title"><br>
+          <label for="comment"> Blog Content:</label>
+          <textarea class="form-control" rows="5" id="comment"></textarea>
+
+          <div class="dropdown" style="float:left; margin-right:8px;">
+          
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="margin: 12px 0px;">Blogs Field
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li><a href="#">Food </a></li>
+      <li><a href="#">Travel </a></li>
+      <li><a href="#">Technology </a></li>
+       <li><a href="#">Fashion Blogs</a></li>
+      <li><a href="#">Mobile & Gadgets </a></li>
+    </ul>
+  </div>
+          <button type="submit" class="btn btn-primary" style="margin: 12px 0px;">Add Blog</button>
+       
+    </div>
+    </form>
       <h4><small>RECENT POSTS</small></h4>
       <hr>
       <h2>Does the literature Nobel to Bob Dylan mean changing times?</h2>
@@ -88,7 +115,7 @@
 </div>
 
 <footer class="container-fluid">
-  <h3>Stark</h3>
+<!--   <h3>Stark</h3> -->
 </footer>
 
 </body>

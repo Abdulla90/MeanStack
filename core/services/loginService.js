@@ -8,7 +8,7 @@ var LoginService = {}
 //When login get loads it will call this function
 LoginService.firstPageRendering = function(req,res){
 	var render = {};
-	render.templateURL = './public/login.html';
+	render.templateURL = './public/login.html';//this code is used to stay on the same page 
 	render.data = {
 		msg:""
 	};
@@ -23,64 +23,80 @@ LoginService.firstPageRendering = function(req,res){
 
 //When user submit its useranme and password it will call this function  
 LoginService.login = function(req,res){
-	var render = {};
-	render.templateURL = './public/login.html';
-	var msg = '';
-	if(req.body.username=="admin") {
-		if(req.body.password=="123") {
-			msg=""
-
-		} else {
-			msg="Invalid password. try again!"
-		}
-	} else if(req.body.username!="admin") {
-		if(req.body.password=="123") {
-			msg="Invalid username. Try again!"
-		} else {
-			msg="Invalid username and password. Try again!"
-		}
+var render = {};
+User.findOne({name:req.body.username, password:req.body.password}, function(err, user) {
+	if(err){
+		console.log(err);
+		return;
 	}
-	render.data = {	
+	
+	if (!user)	{
+		render.templateURL = './public/login.html'; 
+		var msg = "Invalid Username and password";
+		render.data = {	
 		msg:msg
+		}
+		swig_Template.compileHtml(render,function(err,data){
+			if(err){
+	 			console.log(err)
+				return;
+   			}
+   			res.send(data)
+		}) 
+	} else {
+		res.redirect('/blogs');
 	}
-
-	swig_Template.compileHtml(render,function(err,data){
-		if(err){
-	   		console.log(err)
-	   		return;
-   		}
-   		res.send(data)
-	})   	
+})
+	
 }
 
 LoginService.register = function(req,res){
-	//	var render = {};
-	//render.templateURL = './public/Register.html';
-	//render.data = {
-		//msg:"",
-	//}
-	//var name=req.body.username;
-   //swig_Template.compileHtml(render,function(err,data){
-   	//if(err){
-   		//console.log(err)
-   		//return;
-   	//}
-   	//res.send(data)
-   //})
+		var render = {};
+	render.templateURL = './public/Register.html';
+	render.data = {
+		msg:"",
+	}
+	var name=req.body.username;
+   swig_Template.compileHtml(render,function(err,data){
+   	if(err){
+   		console.log(err)
+   		return;
+   	}
+   	res.send(data)
+   })
 }
 
 
 LoginService.NewRegister = function(req,res){
-
+  	var render = {};
+	render.templateURL = './public/Register.html';
+	var msg = '';
 	var obj = {
 		name:req.body.username,
 		password:req.body.password,
 		email:req.body.email
 	}
-
+	//console.log(obj.name);
+	if (obj.name == "" || obj.password == "" || obj.email== "" ){
+	
+		msg = "All fields are mandatory"
+	}
+	else {
+		msg = "successfully created"
+	}
+	render.data = {
+		msg:msg
+	}
+	swig_Template.compileHtml(render,function(err,data){
+   	if(err  ){
+   		console.log(err)
+   		return;
+   	}
+   	res.send(data)
+   })
 	var user = new User(obj);
 	user.save(function(err,data){
-		if(err){
+		if(err || msg == "All fields are mandatory"){
 			console.log("error in saving data");
 			return;
 		}

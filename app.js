@@ -10,7 +10,7 @@ app.get('/',function(req,res){
 	//swig_Template.pagesRendering(req,res);
 	LoginService.firstPageRendering(req,res);
 });
-
+//app.set('view engine', 'ejs');
 app.post('/login',function(req,res){
 	
 	LoginService.login(req,res);
@@ -19,8 +19,8 @@ app.post('/login',function(req,res){
 
 app.get('/register',function(req,res)
 {
-	res.sendFile(path.join(__dirname + '/Public/Register.html'));
-	//LoginService.register(req,res);
+	//res.sendFile(path.join(__dirname + '/Public/Register.html'));
+	LoginService.register(req,res);
 })
 
 app.post('/NewRegister', function(req,res)
