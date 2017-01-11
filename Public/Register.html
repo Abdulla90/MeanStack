@@ -2,20 +2,20 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<link href="/css/style.css" rel="stylesheet" type="text/css">
-<script type="text/javascript" scr="/js/main.js"></script>
+  <link href="/css/style.css" rel="stylesheet" type="text/css">
+
 </head>
 
 <body>
-<div class="register-page">
+<div class="login-page">
   <div class="form">
     <form class="register-form" method="post" action="/NewRegister">
       <input type="text" placeholder="name" name="username">
       <input type="password" placeholder="password" name="password"/>
       <input type="text" placeholder="email address" name="email"/>
-      <button type="submit">create</button>
-      <p class="message">Already registered? <a href="#">Sign In</a></p>
+      <input id="btn1"  type="submit" value="create" />
+      <!-- <button type="submit">create</button> -->
+      <p class="message">Already registered? <a href="/">Sign In</a></p>
     </form>
   </div>
 </div>
