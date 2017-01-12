@@ -10,8 +10,17 @@
   "dependencies": {
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
+    "express-session": "^1.14.2",
     "swig": "^1.4.2"
   },
   "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Abdulla90/MeanStack.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Abdulla90/MeanStack/issues"
+  },
+  "homepage": "https://github.com/Abdulla90/MeanStack#readme",
   "description": ""
 }
