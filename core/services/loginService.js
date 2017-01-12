@@ -1,24 +1,39 @@
+var express = require('express')
 var swig  = require('swig');
-var path = require("path");
+var app = express()
 var User = require('../database/schema/userSchema')
-
 var swig_Template = require('../template/template_swig');
-
 var LoginService = {}
-//When login get loads it will call this function
-LoginService.firstPageRendering = function(req,res){
-	var render = {};
-	render.templateURL = './public/login.html';//this code is used to stay on the same page 
-	render.data = {
-		msg:""
-	};
-   swig_Template.compileHtml(render,function(err,data){
-   	if(err){
-   		console.log(err)
-   		return;
-   	}
-   	res.send(data)
-   });
+
+LoginService.sessionValidation = function(req,res){
+	//console.log("Initial value of Session" + req.session.username);
+	User.findOne({name:req.session.username},function (err,user){
+		if(err){
+		console.log(err);
+		return;
+		}
+	
+	if(user){
+		//console.log("key value of user.name :" + user.name)
+		res.redirect('/blogs');
+	}
+	else{
+
+		var render = {};
+		render.templateURL = './public/login.html';//this code is used to stay on the same page 
+		render.data = {
+			msg:""
+		};
+   		swig_Template.compileHtml(render,function(err,data){
+   		if(err){
+   			console.log(err)
+   			return;
+   		}
+   			res.send(data)
+   		});
+	}
+	})
+
 }
 
 //When user submit its useranme and password it will call this function  
@@ -29,7 +44,6 @@ User.findOne({name:req.body.username, password:req.body.password}, function(err,
 		console.log(err);
 		return;
 	}
-	
 	if (!user)	{
 		render.templateURL = './public/login.html'; 
 		var msg = "Invalid Username and password";
@@ -44,6 +58,9 @@ User.findOne({name:req.body.username, password:req.body.password}, function(err,
    			res.send(data)
 		}) 
 	} else {
+		//console.log( "After validation of user and printing his name: " + user.name);
+		req.session.username = user.name;
+		//console.log("stored value in req.session.username ="+ req.session.username);
 		res.redirect('/blogs');
 	}
 })
