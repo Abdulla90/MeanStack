@@ -8,7 +8,7 @@ var LoginService = require('./core/services/loginService');
 app.use(bodyParser.urlencoded({ extended: true })); //body parser 
 app.use(express.static(__dirname + '/public'));
 app.use(session({resave:true, saveUninitialized:true, secret: 'ssshhhhh'}));//initialing a session 
-var sess;
+
 app.get('/',function(req,res){
 	LoginService.sessionValidation(req,res);
 	//LoginService.firstPageRendering(req,res);
@@ -25,14 +25,21 @@ app.get('/register',function(req,res)
 	LoginService.register(req,res);
 })
 
-app.post('/NewRegister', function(req,res)
+
+app.post('/register', function(req,res)
 {
 	LoginService.NewRegister(req,res);
 })
 
 app.get('/blogs', function(req,res)
 {
-	res.sendFile(path.join(__dirname + '/public/blogs.html'));
+	if (req.session.username){
+		res.sendFile(path.join(__dirname + '/public/blogs.html'));
+	}
+	else{
+		res.redirect('/');
+	}
+
 
 })
 
@@ -42,7 +49,9 @@ app.get('/logout',function(req,res)
 		if(err) {
             console.log(err);
         } else {
-            res.send('successfully logged out');
+            //res.send('successfully logged out');
+            res.sendFile(path.join(__dirname + '/public/blogs.html'));
+
 	    }
 	});
 });

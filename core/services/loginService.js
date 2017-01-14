@@ -24,13 +24,7 @@ LoginService.sessionValidation = function(req,res){
 		render.data = {
 			msg:""
 		};
-   		swig_Template.compileHtml(render,function(err,data){
-   		if(err){
-   			console.log(err)
-   			return;
-   		}
-   			res.send(data)
-   		});
+   		swig_Template.pageRendering(render,res)
 	}
 	})
 
@@ -50,16 +44,11 @@ User.findOne({name:req.body.username, password:req.body.password}, function(err,
 		render.data = {	
 		msg:msg
 		}
-		swig_Template.compileHtml(render,function(err,data){
-			if(err){
-	 			console.log(err)
-				return;
-   			}
-   			res.send(data)
-		}) 
+		swig_Template.pageRendering(render,res) 
 	} else {
 		//console.log( "After validation of user and printing his name: " + user.name);
 		req.session.username = user.name;
+		//req.session.password = user.password;
 		//console.log("stored value in req.session.username ="+ req.session.username);
 		res.redirect('/blogs');
 	}
@@ -67,59 +56,59 @@ User.findOne({name:req.body.username, password:req.body.password}, function(err,
 	
 }
 
-LoginService.register = function(req,res){
-		var render = {};
+LoginService.register = function(req,res,next){
+	var render = {};
 	render.templateURL = './public/Register.html';
 	render.data = {
 		msg:"",
 	}
-	var name=req.body.username;
-   swig_Template.compileHtml(render,function(err,data){
-   	if(err){
-   		console.log(err)
-   		return;
-   	}
-   	res.send(data)
-   })
-}
+ 	swig_Template.pageRendering(render,res)
+
+	}
 
 
 LoginService.NewRegister = function(req,res){
+
   	var render = {};
 	render.templateURL = './public/Register.html';
+	var isValid = false;
 	var msg = '';
 	var obj = {
 		name:req.body.username,
 		password:req.body.password,
 		email:req.body.email
 	}
-	//console.log(obj.name);
+		//console.log(obj.name);
 	if (obj.name == "" || obj.password == "" || obj.email== "" ){
-	
+		//isValid = true;
 		msg = "All fields are mandatory"
+		render.data = {
+				msg:msg
+			}
+				swig_Template.pageRendering(render,res)
+			
+	} else{
+			var user = new User(obj);
+			user.save(function(err,data){
+			if(err){
+				msg="Errors in Saving database"
+				console.log("error in saving data");
+					return;
+			
+			}
+			console.log('data saved to db!',data);
+			msg = "successfully created"
+			console.log(msg);
+			render.data = {
+				msg:msg
+			}
+				swig_Template.pageRendering(render,res)
+					
+			});
+		
 	}
-	else {
-		msg = "successfully created"
-	}
-	render.data = {
-		msg:msg
-	}
-	swig_Template.compileHtml(render,function(err,data){
-   	if(err  ){
-   		console.log(err)
-   		return;
-   	}
-   	res.send(data)
-   })
-	var user = new User(obj);
-	user.save(function(err,data){
-		if(err || msg == "All fields are mandatory"){
-			console.log("error in saving data");
-			return;
-		}
-		console.log('data saved to db!',data);
-		res.end();
-	});
+
+
 }
 
 module.exports = LoginService;

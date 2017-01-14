@@ -16,6 +16,15 @@ swig_Template.compileHtml = function(obj,cb){
 	
 }
 
+swig_Template.pageRendering = function(obj,res){
+	swig_Template.compileHtml(obj,function(err,data){
+   	if(err){
+   		console.log(err)
+   		return;
+   	}
+   	res.send(data)
+   })
+}
 
 module.exports = swig_Template;
 
