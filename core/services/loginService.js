@@ -15,12 +15,12 @@ LoginService.sessionValidation = function(req,res){
 	
 	if(user){
 		//console.log("key value of user.name :" + user.name)
-		res.redirect('/blogs');
+		res.redirect('/blogs/');
 	}
 	else{
 
 		var render = {};
-		render.templateURL = './public/login.html';//this code is used to stay on the same page 
+		render.templateURL = './public/views/login.html';//this code is used to stay on the same page 
 		render.data = {
 			msg:""
 		};
@@ -39,7 +39,7 @@ User.findOne({name:req.body.username, password:req.body.password}, function(err,
 		return;
 	}
 	if (!user)	{
-		render.templateURL = './public/login.html'; 
+		render.templateURL = './public/views/login.html'; 
 		var msg = "Invalid Username and password";
 		render.data = {	
 		msg:msg
@@ -50,7 +50,7 @@ User.findOne({name:req.body.username, password:req.body.password}, function(err,
 		req.session.username = user.name;
 		//req.session.password = user.password;
 		//console.log("stored value in req.session.username ="+ req.session.username);
-		res.redirect('/blogs');
+		res.redirect('/blogs/');
 	}
 })
 	
@@ -58,7 +58,7 @@ User.findOne({name:req.body.username, password:req.body.password}, function(err,
 
 LoginService.register = function(req,res,next){
 	var render = {};
-	render.templateURL = './public/Register.html';
+	render.templateURL = './public/views/Register.html';
 	render.data = {
 		msg:"",
 	}
@@ -70,7 +70,7 @@ LoginService.register = function(req,res,next){
 LoginService.NewRegister = function(req,res){
 
   	var render = {};
-	render.templateURL = './public/Register.html';
+	render.templateURL = './public/views/Register.html';
 	var isValid = false;
 	var msg = '';
 	var obj = {

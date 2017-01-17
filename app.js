@@ -1,5 +1,4 @@
 var express = require('express')
-
 var app = express()
 var path = require("path");
 var bodyParser = require('body-parser');
@@ -8,6 +7,7 @@ var LoginService = require('./core/services/loginService');
 app.use(bodyParser.urlencoded({ extended: true })); //body parser 
 app.use(express.static(__dirname + '/public'));
 app.use(session({resave:true, saveUninitialized:true, secret: 'ssshhhhh'}));//initialing a session 
+app.use(bodyParser.json());
 
 app.get('/',function(req,res){
 	LoginService.sessionValidation(req,res);
@@ -31,10 +31,10 @@ app.post('/register', function(req,res)
 	LoginService.NewRegister(req,res);
 })
 
-app.get('/blogs', function(req,res)
+app.get('/blogs/', function(req,res)
 {
 	if (req.session.username){
-		res.sendFile(path.join(__dirname + '/public/blogs.html'));
+		res.sendFile(path.join(__dirname + '/public/views/blogs.html'));
 	}
 	else{
 		res.redirect('/');
@@ -43,17 +43,21 @@ app.get('/blogs', function(req,res)
 
 })
 
+app.post('/addBlogDataToServer',function(req,res){
+	console.log(req.body)
+	res.send(req.body)
+})
+
 app.get('/logout',function(req,res)
 {
 	req.session.destroy(function(err){
 		if(err) {
             console.log(err);
         } else {
-            //res.send('successfully logged out');
-            res.sendFile(path.join(__dirname + '/public/blogs.html'));
-
+        	res.redirect('/')
 	    }
 	});
+
 });
 
 app.listen(3000, function () {
