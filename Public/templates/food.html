@@ -1,0 +1,49 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <!-- <a class="navbar-brand" href="#">STARK</a> -->
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#/">Home</a></li>
+        <li><a href="#/profile">Profile</a></li>
+        <li><a href="#/contact">Contact</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Sign-out</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container-fluid">
+  <div class="row content">
+    <div class="col-sm-3 sidenav">
+      <h4>Featured Blogs</h4>
+      <ul class="nav nav-pills nav-stacked">
+        <li class="active"><a href="#section1">your Blogs</a></li>
+        <li><a href="#section2">Food Blogs</a></li>
+        <li><a href="#section3">Travel Blogs</a></li>
+        <li><a href="#section3">Technology Blogs</a></li>
+        <li><a href="#section3">Fashion Blogs</a></li>
+          <li><a href="#section3">Mobile & Gadgets</a></li>
+      </ul><br>
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search Blog..">
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button">
+            <span class="glyphicon glyphicon-search"></span>
+          </button>
+        </span>
+      </div>
+    </div>
+
+    <div class="col-sm-9">
+    {{blogdata}}
+    </div>
+  </div>
+</div>

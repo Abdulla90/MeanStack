@@ -13,4 +13,9 @@ app.config(function($routeProvider) {
     .when("/contact",{
     	templateUrl : "../../templates/contact.html"
     })
+
+    .when("/food",{
+        templateUrl : "../../templates/food.html",
+        controller:"foodCntrl"
+    })
 });

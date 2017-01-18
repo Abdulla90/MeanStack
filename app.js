@@ -4,6 +4,7 @@ var path = require("path");
 var bodyParser = require('body-parser');
 var session = require('express-session')
 var LoginService = require('./core/services/loginService');
+var BlogService = require('./core/services/BlogService')
 app.use(bodyParser.urlencoded({ extended: true })); //body parser 
 app.use(express.static(__dirname + '/public'));
 app.use(session({resave:true, saveUninitialized:true, secret: 'ssshhhhh'}));//initialing a session 
@@ -44,8 +45,18 @@ app.get('/blogs/', function(req,res)
 })
 
 app.post('/addBlogDataToServer',function(req,res){
-	console.log(req.body)
-	res.send(req.body)
+	//console.log(req)
+	
+	BlogService.uploadBlog(req,res);
+	//res.send(req.body)
+})
+
+app.get('/fetchBlogsData',function(req,res){
+		//console.log(req.body)
+		//console.log("inside fetchBlogsData")
+		BlogService.fetchBlog(req,res);
+		
+
 })
 
 app.get('/logout',function(req,res)
