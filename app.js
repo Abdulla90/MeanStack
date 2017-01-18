@@ -43,7 +43,15 @@ app.get('/blogs/', function(req,res)
 
 
 })
+app.get('/fetchBlogsData',function(req,res){
+		//console.log(req.body)
+		//console.log("inside fetchBlogsData")
+		BlogService.fetchBlog(req,res);
+})
 
+app.get('/getUsersName', function(req,res){
+	res.send(req.session.username)
+})
 app.post('/addBlogDataToServer',function(req,res){
 	//console.log(req)
 	
@@ -51,13 +59,13 @@ app.post('/addBlogDataToServer',function(req,res){
 	//res.send(req.body)
 })
 
-app.get('/fetchBlogsData',function(req,res){
-		//console.log(req.body)
-		//console.log("inside fetchBlogsData")
-		BlogService.fetchBlog(req,res);
-		
-
+app.post('/fetchTypeBlogsData',function(req,res){
+		//console.log(req.data);
+		console.log("fetchTypeBlogsData");
+		//res.send("null")
+		BlogService.fetchTypeBlog(req,res);
 })
+
 
 app.get('/logout',function(req,res)
 {

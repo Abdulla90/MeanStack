@@ -1,4 +1,4 @@
-var express = require('express')
+	var express = require('express')
 var swig  = require('swig');
 var app = express()
 var User = require('../database/schema/userSchema')

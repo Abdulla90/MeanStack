@@ -5,9 +5,7 @@ var BlogsSchema =  mongoose.Schema({
 	title:String,
 	content:String,
 	type:String,
-	day:Number,
-	month:String,
-	year:Number,
+	stringDate:String,
 	status:String
 })
 var Blogs = mongoose.model('blogs',BlogsSchema)
