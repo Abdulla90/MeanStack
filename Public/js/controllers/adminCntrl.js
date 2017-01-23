@@ -1,5 +1,6 @@
-app.controller("dashbordCntrl", function($scope,$http) {
-    $scope.blog = {};
+app.controller("adminCntrl", ['$scope','$http','$routeParams',function($scope,$http, $routeParams) {
+
+ $scope.blog = {};
     $scope.blogDetail=[];
     $scope.userObj = {};
     $scope.userName = "";
@@ -66,6 +67,25 @@ app.controller("dashbordCntrl", function($scope,$http) {
         console.log(data);
        })
     }
-    
+    $scope.deleteBlog = function(val){
+    	var url="/deleteBlogDB";
+    	var data={ "blog_id":val};
+    	var config={
+    		header:{
+    			'Content-Type' : 'application/json'
+    		}
+    	}
+    	$http.post(url,data,config)
+    	.success(function(data,status,header,config){
+    		console.log(data);
+    		$scope.blogDetail = data;
+    		//$scope.getAllBlogs();
+    		//console.log(data);
+		})
+    	.error(function(data,status,header,config){
+    		console.log
+    	})
+    }
 
-});
+
+}]);

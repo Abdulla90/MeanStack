@@ -14,5 +14,12 @@ app.config(function($routeProvider) {
     	templateUrl : "../../templates/contact.html"
     })
 
-    
+    .when("/admin",{
+        templateUrl : "../../templates/admin.html",
+         controller:"adminCntrl"
+    })
+    .when("/blog/:id",{
+        templateUrl : "../../templates/blogView.html",
+        controller : "blogViewCntrl"
+    })
 });

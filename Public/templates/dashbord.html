@@ -15,7 +15,7 @@
         <li><a href="#/contact">Contact</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-         <li><a style="color: yellow;">WelCome! {{ userName }} </a></li> 
+         <li><a style="color: yellow;">Welcome! {{ userName }} </a></li> 
         <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Sign-out</a></li>
       </ul>
     </div>
@@ -26,13 +26,13 @@
     <div class="col-sm-3 sidenav">
       <h4>Featured Blogs</h4>
       <ul class="nav nav-pills nav-stacked">
-        <li class="active"><a  ng-click="getAllBlogs()">All Blogs</a></li>
-        <li><a ng-click="foodBlogs('food')"> Food Blogs</a></li>
-        <li><a ng-click="foodBlogs('travel')">Travel Blogs</a></li>
-        <li><a ng-click="foodBlogs('tecnology')">Technology Blogs</a></li>
-        <li><a ng-click="foodBlogs('fashion')">Fashion Blogs</a></li>
-          <li><a ng-click="foodBlogs('Gadgets')">Mobile & Gadgets</a></li>
-          <li><a ng-click="foodBlogs('other')">Others</a></li>
+        <li ><a  href="javascript:void(0);"  ng-click="getAllBlogs()">All Blogs</a></li>
+        <li><a href="javascript:void(0);" ng-click="foodBlogs('food')"> Food Blogs</a></li>
+        <li><a  href="javascript:void(0);" ng-click="foodBlogs('travel')">Travel Blogs</a></li>
+        <li><a href="javascript:void(0);"  ng-click="foodBlogs('tecnology')">Technology Blogs</a></li>
+        <li><a  href="javascript:void(0);" ng-click="foodBlogs('fashion')">Fashion Blogs</a></li>
+          <li><a  href="javascript:void(0);" ng-click="foodBlogs('Gadgets')">Mobile & Gadgets</a></li>
+          <li><a href="javascript:void(0);" ng-click="foodBlogs('other')">Others</a></li>
       </ul><br>
       <div class="input-group">
         <input type="text" class="form-control" placeholder="Search Blog..">
@@ -70,21 +70,13 @@
       <h4><small>RECENT POSTS</small></h4>
       <hr>
       <div ng-repeat="blog in blogDetail | orderBy:'-' ">
-        <h2>{{blog.title}}</h2>
+        <h2><a href="#/blog/{{blog._id}}" >{{blog.title}}</a></h2>
         <h5><span class="glyphicon glyphicon-time"></span> Post by {{ blog.stringDate }}</h5>
         <p style="text-align:justify;">{{blog.content}}</p>
       </div>
-      
-      <hr>
+    <hr>
 
-      <h4>Leave a Comment:</h4>
-      <form role="form">
-        <div class="form-group">
-          <textarea class="form-control" rows="3" required></textarea>
-        </div>
-        <button type="submit" class="btn btn-success">Submit</button>
-      </form>
-      <br><br>
+    
       
      
     </div>

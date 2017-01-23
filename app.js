@@ -36,10 +36,8 @@ app.get('/blogs/', function(req,res)
 {
 	if (req.session.username){
 		res.sendFile(path.join(__dirname + '/public/views/blogs.html'));
-	}
-	else{
-		res.redirect('/');
-	}
+	}else
+	res.redirect('/');
 
 
 })
@@ -66,6 +64,18 @@ app.post('/fetchTypeBlogsData',function(req,res){
 		BlogService.fetchTypeBlog(req,res);
 })
 
+app.post('/viewsTypeBlogsData', function(req,res){
+	console.log(req.body);
+	//BlogService.updateBlog(req,res);
+	//res.send(req.body)
+	BlogService.blogscomments(req,res);
+})
+
+app.post('/addCommentToSchema',function(req,res){
+	//console.log(req.body);
+	BlogService.addblogComments(req,res);
+})
+
 
 app.get('/logout',function(req,res)
 {
@@ -79,6 +89,12 @@ app.get('/logout',function(req,res)
 
 });
 
+
+app.post('/deleteBlogDB',function(req,res)
+{
+	//	console.log(req.body.blog_id);
+	BlogService.FuncdeleteBlog(req,res);
+})
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!')
 })

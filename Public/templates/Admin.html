@@ -1,0 +1,71 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <!-- <a class="navbar-brand" href="#">STARK</a> -->
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="javascript:void(0);" ng-click="getAllBlogs()"> All-Blogs</a></li>
+        <li><a href="#">Pending Blogs</a>
+          <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);" >Blog Type
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+        <li><a href="javascript:void(0);" ng-click="foodBlogs('food')"> Food Blogs</a></li>
+        <li><a  href="javascript:void(0);" ng-click="foodBlogs('travel')">Travel Blogs</a></li>
+        <li><a href="javascript:void(0);"  ng-click="foodBlogs('tecnology')">Technology Blogs</a></li>
+        <li><a  href="javascript:void(0);" ng-click="foodBlogs('fashion')">Fashion Blogs</a></li>
+          <li><a  href="javascript:void(0);" ng-click="foodBlogs('Gadgets')">Mobile & Gadgets</a></li>
+          <li><a href="javascript:void(0);" ng-click="foodBlogs('other')">Others</a></li>
+        </ul>
+      </li>
+        <li><a href="#/contact">Contact</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+         <li><a style="color: yellow;">Welcome! {{ userName }} </a></li> 
+        <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Sign-out</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container-fluid">
+  <div class="row content">
+
+    <div class="col-sm-12">
+    
+      <h4><small>POSTS</small></h4>
+      <hr>
+      <div ng-repeat="blog in blogDetail | orderBy:'-' ">
+      <h4> <small>User Name :</small> {{ blog.name}}</h4>
+        <h2>{{blog.title}}</h2>
+        <h5><span class="glyphicon glyphicon-time"></span> Post by {{ blog.stringDate }}</h5>
+        <p style="text-align:justify;">{{blog.content}}</p>
+        <p>Current Status :{{blog.status}}</p>
+          <form style="padding-bottom:15px;">
+              <label class="checkbox-inline"> 
+              <input type="checkbox" ng-model="blog.status" value="Enable">Enable Status</label>
+                            
+              <button type="button" class="btn btn-primary" /*ng-click="UpdateStatus()"*/ style="margin:3px 6px;padding:3px 3px;">submit</button><br>
+           
+          </form>
+               <button type="button" class="btn btn-danger" ng-click="deleteBlog(blog._id)" style="margin:0px 6px;padding:5px 5px; float:right;">Delete Blog</button>
+          <hr style="color:black">
+      </div>
+    
+    <hr>
+
+    
+      
+     
+    </div>
+  </div>
+</div>
+
+<footer class="container-fluid">
+<!--   <h3>Stark</h3> -->
+</footer>

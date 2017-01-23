@@ -48,9 +48,14 @@ User.findOne({name:req.body.username, password:req.body.password}, function(err,
 	} else {
 		//console.log( "After validation of user and printing his name: " + user.name);
 		req.session.username = user.name;
+		if (req.session.username == "admin" ){
+		res.redirect('/blogs/#/admin');
+
+		}else
+		 res.redirect('/blogs/');
 		//req.session.password = user.password;
 		//console.log("stored value in req.session.username ="+ req.session.username);
-		res.redirect('/blogs/');
+		
 	}
 })
 	

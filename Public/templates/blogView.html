@@ -1,0 +1,66 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <!-- <a class="navbar-brand" href="#">STARK</a> -->
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#/">Home</a></li>
+        <li><a href="#/profile">Profile</a></li>
+        <li><a href="#/contact">Contact</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+         <li><a style="color: yellow;">Welcome! {{ userName }} </a></li> 
+        <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Sign-out</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container-fluid">
+  <div class="row content">
+<div class="col-sm-11">
+   
+      <h4><small>RECENT POSTS</small></h4>
+      <hr>
+      <div>
+        <h2>{{ blogcommentdata.data1.title}}</h2>
+        <h5><span class="glyphicon glyphicon-time"></span> Post by {{ blogcommentdata.stringDate }}</h5>
+        <p style="text-align:justify;">{{blogcommentdata.data1.content}}</p>
+      </div>
+    <hr>
+     <h4><small>Comment Section</small><h4>
+
+      <div ng-repeat="blog in blogcommentdata.data2  | orderBy:'-' ">
+      <hr>
+      <div style="border:1px solid grey; padding-left: 10px; padding-bottom: 13px;">
+        <h4 ><small> User Name:</small>{{blog.name}}</h4>
+        <h5><small>Comment:</small></h5>
+        <p style="text-align:justify;">{{blog.comment}}</p>
+        <h5 style="float:right ;margin: 12px;"><small><span class="glyphicon glyphicon-time"></span> commented on{{ blog.stringDate }}</small></h5><br>
+
+       
+        </div>
+      </div>
+     
+      <form>
+        <label for="comment" style="margin-top:12Px;"> Add Comment:</label>
+          <textarea class="form-control" rows="5" ng-model="blogDetail.comments" id="comments" placeholder="Enter comments for blog " ></textarea>
+          <button class="btn btn-primary" type="button" ng-click="addcomment()" style="margin:12px;padding:5px;">Add-Comment</button> 
+      </form>
+
+
+    
+      
+     
+    </div>
+  </div>
+</div>
+
+<footer class="container-fluid">
+<!--   <h3>Stark</h3> -->
+</footer>
