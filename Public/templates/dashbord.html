@@ -26,13 +26,10 @@
     <div class="col-sm-3 sidenav">
       <h4>Featured Blogs</h4>
       <ul class="nav nav-pills nav-stacked">
-        <li ><a  href="javascript:void(0);"  ng-click="getAllBlogs()">All Blogs</a></li>
-        <li><a href="javascript:void(0);" ng-click="foodBlogs('food')"> Food Blogs</a></li>
-        <li><a  href="javascript:void(0);" ng-click="foodBlogs('travel')">Travel Blogs</a></li>
-        <li><a href="javascript:void(0);"  ng-click="foodBlogs('tecnology')">Technology Blogs</a></li>
-        <li><a  href="javascript:void(0);" ng-click="foodBlogs('fashion')">Fashion Blogs</a></li>
-          <li><a  href="javascript:void(0);" ng-click="foodBlogs('Gadgets')">Mobile & Gadgets</a></li>
-          <li><a href="javascript:void(0);" ng-click="foodBlogs('other')">Others</a></li>
+        <li><a  href="javascript:void(0);"  ng-click="getAllBlogs()">All Blogs</a></li>
+      </ul>
+      <ul class="nav nav-pills nav-stacked" ng-repeat="blogtype in blogTypes | orderBy:'-'" >
+        <li ><a href="javascript:void(0);" ng-click="foodBlogs(blogtype._id)">{{blogtype.name}}</a></li>
       </ul><br>
       <div class="input-group">
         <input type="text" class="form-control" placeholder="Search Blog..">
@@ -48,17 +45,12 @@
     <h2>Add Your Blog</h2>
      <form>
         <div class="form-group">
-            <label for="sel1" >Blog Type : </label><br>
-            <select class="form-control" id="sel1" ng-model="blog.type" style="width:30%;">
-            <option value="" disabled selected>Select your Blog type</option>
-            <option value="food" >Food</option>
-            <option value = "travel">Travel</option>
-            <option value ="tecnology">Technology</option>
-            <option value="fashion">Fashion Blogs</option>
-            <option value="Gadgets">Mobile & Gadgets</option>
-            <option value="other">Other</option>
-            </select>
-          <label for="Titel" style="margin-top:12Px;">Blog Title:</label>
+        <label for="sel1" >Blog Type : </label><br>
+        <select class="form-control" id="sel1" ng-model="blog.type" style="width:30%;" >
+        <option value="" disabled selected>Type of Blog </option>
+        <option ng-repeat="blogtype in blogTypes" value="{{blogtype._id}}">{{blogtype.name}}</option>
+        </select>
+         <label for="Titel" style="margin-top:12Px;">Blog Title:</label>
           <input type="text" class="form-control" ng-model="blog.title" name="title" placeholder="Enter Title for you blog">
           <label for="comment" style="margin-top:12Px;"> Blog's detail:</label>
           <textarea class="form-control" rows="5" ng-model="blog.comment" id="comment" placeholder="Enter contents for blog "></textarea>
@@ -70,9 +62,11 @@
       <h4><small>RECENT POSTS</small></h4>
       <hr>
       <div ng-repeat="blog in blogDetail | orderBy:'-' ">
+        <div ng-if="blog.status == 'Enabled'">
         <h2><a href="#/blog/{{blog._id}}" >{{blog.title}}</a></h2>
         <h5><span class="glyphicon glyphicon-time"></span> Post by {{ blog.stringDate }}</h5>
         <p style="text-align:justify;">{{blog.content}}</p>
+        </div>
       </div>
     <hr>
 

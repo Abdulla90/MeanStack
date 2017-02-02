@@ -1,0 +1,13 @@
+var x = function(a){
+	
+}
+function(b){
+		return a+b;
+	}
+var y = x(5);
+var z=y(3);
+console.log(z)//8
+var z=y(6);
+console.log(z)//11
+
+var y = x(6)

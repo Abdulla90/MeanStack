@@ -11,39 +11,92 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li class="active"><a href="#/">Home</a></li>
-        <li><a href="#">Profile</a></li>
+        <li><a href="#/profile">Profile</a></li>
         <li><a href="#/contact">Contact</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
+         <li><a style="color: yellow;">Welcome! {{ userName }} </a></li> 
         <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Sign-out</a></li>
       </ul>
     </div>
   </div>
 </nav>
-<div class="container-fluid">
-  <div class="row content">
-    <div class="col-sm-3 sidenav">
-      <h4>Featured Blogs</h4>
-      <ul class="nav nav-pills nav-stacked">
-        <li class="active"><a href="#section1">your Blogs</a></li>
-        <li><a href="#section2">Food Blogs</a></li>
-        <li><a href="#section3">Travel Blogs</a></li>
-        <li><a href="#section3">Technology Blogs</a></li>
-        <li><a href="#section3">Fashion Blogs</a></li>
-          <li><a href="#section3">Mobile & Gadgets</a></li>
-      </ul><br>
-      <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search Blog..">
-        <span class="input-group-btn">
-          <button class="btn btn-default" type="button">
-            <span class="glyphicon glyphicon-search"></span>
-          </button>
-        </span>
+<div class="container">
+    <h1>Edit Profile</h1>
+    <hr>
+  <div class="row">
+      <!-- left column -->
+      <div class="col-md-3">
+        <div class="text-center">
+          <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
+          <h6>Upload a different photo...</h6>
+          
+          <input type="file" class="form-control">
+        </div>
       </div>
-    </div>
-
-    <div class="col-sm-9">
-    Profile
-    </div>
+      
+      <!-- edit form column -->
+      <div class="col-md-9 personal-info">
+        
+        <h3>Personal info</h3>
+        
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label class="col-lg-3 control-label">First name:</label>
+            <div class="col-lg-8">
+              <input class="form-control" type="text" placeholder="Enter Name">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Last name:</label>
+            <div class="col-lg-8">
+              <input class="form-control" type="text" placeholder="Last Name">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Company:</label>
+            <div class="col-lg-8">
+              <input class="form-control" type="text" value="Company">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Email:</label>
+            <div class="col-lg-8">
+              <input class="form-control" type="text" placeholder="janesemail@gmail.com">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="col-md-3 control-label">Username:</label>
+            <div class="col-md-8">
+              <input class="form-control" type="text" placeholder="userName">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">Password:</label>
+            <div class="col-md-8">
+              <input class="form-control" type="password" value="11111122333">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">Confirm password:</label>
+            <div class="col-md-8">
+              <input class="form-control" type="password" value="11111122333">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label"></label>
+            <div class="col-md-8">
+              <input type="button" class="btn btn-primary" value="Save Changes">
+              <span></span>
+              <input type="reset" class="btn btn-default" value="Cancel">
+            </div>
+          </div>
+        </form>
+      </div>
   </div>
 </div>
+<hr>
+<footer class="container-fluid">
+<!--   <h3>Stark</h3> -->
+</footer>

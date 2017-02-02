@@ -15,6 +15,18 @@ app.get('/',function(req,res){
 	//LoginService.firstPageRendering(req,res);
 });
 
+var router = express.Router()
+/*router.use(function (req, res, next) {
+  console.log('Time:', Date.now())
+  next()
+})
+app.use('/reg', router);
+router.get('/getPage', function(req,res){
+	console.log('get page route called!')
+} );
+router.get('/addUser', function(req,res){
+	console.log('add user route called!')
+} );*/
 
 app.post('/login',function(req,res){
 	LoginService.login(req,res);
@@ -47,6 +59,10 @@ app.get('/fetchBlogsData',function(req,res){
 		BlogService.fetchBlog(req,res);
 })
 
+app.get('/fetchAllTypes',function(req,res){
+	BlogService.fetchTypes(req,res);
+})
+
 app.get('/getUsersName', function(req,res){
 	res.send(req.session.username)
 })
@@ -62,6 +78,13 @@ app.post('/fetchTypeBlogsData',function(req,res){
 		console.log("fetchTypeBlogsData");
 		//res.send("null")
 		BlogService.fetchTypeBlog(req,res);
+})
+
+app.post('/fetchPendingBlogs',function(req,res){
+		//console.log(req.data);
+		//console.log("fetchBlogsData");
+		//res.send("null")
+		BlogService.fetchPendingData(req,res);
 })
 
 app.post('/viewsTypeBlogsData', function(req,res){
@@ -95,6 +118,18 @@ app.post('/deleteBlogDB',function(req,res)
 	//	console.log(req.body.blog_id);
 	BlogService.FuncdeleteBlog(req,res);
 })
-app.listen(3000, function () {
+app.post('/updateBlogDB',function(req,res)
+{
+	//res.send(req.body)
+	//	console.log(req.body.blog_id);
+	BlogService.FuncUpateStatusBlog(req,res);
+})
+
+app.post('/updateBlogTypeDB',function(req,res)
+{
+	BlogService.FuncUpdateBlogType(req,res);
+})
+
+app.listen(3000, '0.0.0.0', function () {
   console.log('Example app listening on port 3000!')
 })

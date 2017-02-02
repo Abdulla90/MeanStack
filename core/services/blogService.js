@@ -3,8 +3,8 @@ var swig  = require('swig');
 var app = express()
 var Blogs = require('../database/schema/BlogsSchema')
 var viewblog = require('../database/schema/BlogsViewSchema')
+var BlogsType = require('../database/schema/blogTypeSchema')
 var swig_Template = require('../template/template_swig');
-
 var BlogService = {}
 var BlogCommentArray = {};
 
@@ -21,16 +21,6 @@ var stringDate = fullDate.toString();
 return stringDate;
 }
 
-// global.callOfCommentsBlog = function(req,res){
-// 	viewblog.findOne({_id:req.body.id},function(err, commentBlogs){
-// 		if(err){
-// 			console.log(err);
-// 			return;
-// 		}
-// 		console.log( commentBlogs);
-// 	})
-// }
- 
 BlogService.uploadBlog = function (req,res){
 var status = 'pending';
 var stringDate = StdTime();
@@ -52,7 +42,6 @@ var blogs = new Blogs(obj);
 				//msg="Errors in Saving database"
 				console.log("error in saving data");
 					return;
-			
 			}
 			console.log('data saved to db!');
 			Blogs.find(function(err,blogs){
@@ -66,8 +55,6 @@ var blogs = new Blogs(obj);
 			})
 	
 		});
-			
-
 }
 
 BlogService.fetchBlog = function(req,res){
@@ -79,9 +66,18 @@ BlogService.fetchBlog = function(req,res){
 					return;
 				}
 				res.send(blogs);
-
 			})
 
+}
+
+BlogService.fetchTypes = function(req,res){
+	BlogsType.find(function(err,blogstype){
+		if(err){
+			console.log(err);
+			return;
+		}
+		res.send(blogstype);
+	})
 }
 
 BlogService.fetchTypeBlog = function(req,res){
@@ -95,38 +91,36 @@ BlogService.fetchTypeBlog = function(req,res){
 	})
 }
 
+BlogService.fetchPendingData= function(req,res){
+	
+	Blogs.find({status:req.body.status},function(err,blogs){
+		if(err){
+			console.log(err);
+			return;
+		}
+		res.send(blogs);
+	})
+}
+
 BlogService.blogscomments = function(req, res){
-
-
 	Blogs.findOne({_id:req.body.id},function(err,blogs){
 		if(err){
 			console.log(err);
 				return;
 		}
- 		console.log(req.body.id);
-
-		viewblog.find({blogId:req.body.id},function(err, commentBlogs){
- 		if(err){
- 			console.log(err);
- 			return;
- 		}
-
- 		/*console.log("-------")
- 		console.log(req.body.id);
- 		console.log(commentBlogs);*/
- 		//BlogCommentArray = commentBlogs;
- 		//res.send(commentBlogs);
- 		BlogCommentArray = {
-			data1:blogs,
-			data2:commentBlogs
-		}
-
-
-	res.send(BlogCommentArray)
- 	})
-		
-	})
-	
+ 			console.log(req.body.id);
+			viewblog.find({blogId:req.body.id},function(err, commentBlogs){
+ 				if(err){
+ 				console.log(err);
+ 				return;
+ 				}
+ 					BlogCommentArray = {
+						data1:blogs,
+						data2:commentBlogs
+					}
+					res.send(BlogCommentArray)
+ 	 		})
+ 	 })
 }
 
 
@@ -157,7 +151,7 @@ commentBlogs.save(function(err,data){
 
 BlogService.FuncdeleteBlog = function(req,res){
 	//var db = req.db;
-	console.log(req.body.blog_id);
+	//console.log(req.body.blog_id);
 	Blogs.remove({ _id:req.body.blog_id},function(err, blogs){
 		//Blogs.findOne({_id:req.body.id},function(err,blogs){
 		if(err){
@@ -177,6 +171,47 @@ BlogService.FuncdeleteBlog = function(req,res){
 
 }
 
+BlogService.FuncUpateStatusBlog = function(req,res){
+	
+	Blogs.update({_id:req.body.blog_id}, {$set: {status:req.body.blog_status}},function(err, blogs){
+
+		if(err){
+			console.log(err);
+			return;
+		}
+	Blogs.find(function(err,blogs){
+				if(err){
+					console.log(err);
+					return;
+				}
+				res.send(blogs);
+
+			})
+	});
+}
+
+BlogService.FuncUpdateBlogType = function(req,res){
+	var obj = {
+	name:req.body.type
+	}
+	var blogstype = new BlogsType(obj);
+	blogstype.save(function(err,data){
+				if(err){
+					//msg="Errors in Saving database"
+					console.log("error in saving data");
+						return;
+				
+				}
+				console.log('data saved to db!');
+				//console.log(commentBlogs)
+				res.send(blogstype)	
+		
+			});
+		
+
+	}
+	
 
 
 module.exports = BlogService;
+

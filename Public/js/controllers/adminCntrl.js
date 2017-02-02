@@ -1,91 +1,123 @@
-app.controller("adminCntrl", ['$scope','$http','$routeParams',function($scope,$http, $routeParams) {
+app.controller("adminCntrl", ['$scope','$http','$routeParams','httpService',
+  function($scope,$http, $routeParamhttpService, httpService) {
 
- $scope.blog = {};
+    $scope.blog = {};
     $scope.blogDetail=[];
-    $scope.userObj = {};
     $scope.userName = "";
-     $scope.getSessionName = function(){
-      $http.get('/getUsersName')
-      .success(function(data, status, header, config){
-        $scope.userName = data;
-        console.log(data);
-      })
-      .error(function(data, status,header,config){
-        console.log(data);
-      })
+    $scope.blogTypes = {};
+        
+  $scope.getUserName = function(){
+    var url="/getUsersName"
+    httpService.get(url,function(err,data){
+          if(err){
+            console.log("err");
+            return;
+          }
+            $scope.userName = data;
+        });
     }
-    $scope.getAllBlogs=function(){
-      $http.get('/fetchBlogsData')
-      .success(function (data , status, header, config ){
-       $scope.blogDetail = data;
-        console.log("$scope.blogDetail" , $scope.blogDetail);
-       })
-       .error(function(data , status, header,config){
-        console.log(data);
-       })
 
+    
+  $scope.getAllBlogs=function(){
+      var url="/fetchBlogsData"
+      httpService.get(url,function(err,data){
+        if (err){
+          console.log("err");
+          return;
+        }
+        $scope.blogDetail = data;
+      });
     }
    
-    $scope.getAllBlogs();
-    $scope.getSessionName();
+  $scope.ArrayOfBlogTypes = function(){
+      var url="/fetchAllTypes";
+      httpService.get(url,function(err,data){
+        if(err){
+          console.log("err");
+          return;
+        }
+        $scope.blogTypes = data;
+    });
+  }
+
+  $scope.ArrayOfBlogTypes();
+  $scope.getAllBlogs();
+  $scope.getUserName();
+
+   
     $scope.addBlog=function(){
-    	console.log($scope.blog);
-    	// use $.param jQuery function to serialize data from JSON 
     	var url="/addBlogDataToServer";
     	var data=$scope.blog
-    	var config={
-    		header:{
-    			'Content-Type' : 'application/json'
-    		}
-    	}
-       $http.post(url,data,config)
-       .success(function (data , status, header, config ){
-        $scope.blogDetail = data;
-       	console.log(data);
-       })
-       .error(function(data , status, header,config){
-       	console.log(data);
-       })
-
+    	httpService.post(url,data, function(err,data){
+        if(err){
+          console.log("err");
+          return;
+        }
+         $scope.blogDetail = data;
+      });
     }
 
     $scope.foodBlogs = function(val){
       var url="/fetchTypeBlogsData";
       var data = {"type":val};
-      var config={
-        header:{
-          'Content-Type' : 'application/json'
+      $http.post(url,data,function(err,data){
+        if(err){
+          console.log("err");
         }
-      }
-      console.log(data);
-      $http.post(url,data,config)
-      .success(function (data , status, header, config ){
         $scope.blogDetail = data;
-        console.log(data);
-       })
-       .error(function(data , status, header, config){
-        console.log(data);
-       })
+      })
     }
+
+    $scope.getPendingBlogs = function(val){
+      var url="/fetchPendingBlogs";
+      var data = {"status":val};
+      httpService.post(url,data,function(err,data){
+        if (err) {
+          console.log("error");
+          return;
+        }
+        $scope.blogDetail = data;
+      })
+    }
+  
     $scope.deleteBlog = function(val){
     	var url="/deleteBlogDB";
     	var data={ "blog_id":val};
-    	var config={
-    		header:{
-    			'Content-Type' : 'application/json'
-    		}
-    	}
-    	$http.post(url,data,config)
-    	.success(function(data,status,header,config){
-    		console.log(data);
-    		$scope.blogDetail = data;
-    		//$scope.getAllBlogs();
-    		//console.log(data);
-		})
-    	.error(function(data,status,header,config){
-    		console.log
-    	})
+    	httpService.post(url,data,function(err,data){
+        if(err){
+          console.log("err");
+          return;
+        }
+          $scope.blogDetail = data;
+      });
     }
 
+
+    $scope.updateStatus = function(val1,val2){      	
+    	var url="/updateBlogDB";
+    	var data={ "blog_id" : val2,
+    			   "blog_status" : val1 };
+    	
+    	httpService.post(url,data,function(err,data){
+        if(err){
+          console.log("err");
+          return;
+        }
+          $scope.blogDetail = data;
+      });
+    }
+
+
+  $scope.addBlogType = function(){
+    var url="/updateBlogTypeDB";
+	  var data=$scope.blog
+	 httpService.post(url,data,function(err,data){
+    if(err){
+      console.log("error");
+      return;
+    }
+      $scope.ArrayOfBlogTypes();
+   });
+  }
 
 }]);
