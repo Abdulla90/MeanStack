@@ -7,7 +7,7 @@ app.controller("adminCntrl", ['$scope','$http','$routeParams','httpService',
     $scope.blogTypes = {};
         
   $scope.getUserName = function(){
-    var url="/getUsersName"
+    var url="/blogs/getUsersName"
     httpService.get(url,function(err,data){
           if(err){
             console.log("err");
@@ -19,7 +19,7 @@ app.controller("adminCntrl", ['$scope','$http','$routeParams','httpService',
 
     
   $scope.getAllBlogs=function(){
-      var url="/fetchBlogsData"
+      var url="/blogs/fetchBlogsData"
       httpService.get(url,function(err,data){
         if (err){
           console.log("err");
@@ -30,7 +30,7 @@ app.controller("adminCntrl", ['$scope','$http','$routeParams','httpService',
     }
    
   $scope.ArrayOfBlogTypes = function(){
-      var url="/fetchAllTypes";
+      var url="/blogs/fetchAllTypes";
       httpService.get(url,function(err,data){
         if(err){
           console.log("err");
@@ -46,7 +46,7 @@ app.controller("adminCntrl", ['$scope','$http','$routeParams','httpService',
 
    
     $scope.addBlog=function(){
-    	var url="/addBlogDataToServer";
+    	var url="/blogs/addBlogDataToServer";
     	var data=$scope.blog
     	httpService.post(url,data, function(err,data){
         if(err){
@@ -57,10 +57,10 @@ app.controller("adminCntrl", ['$scope','$http','$routeParams','httpService',
       });
     }
 
-    $scope.foodBlogs = function(val){
-      var url="/fetchTypeBlogsData";
+    $scope.fetchTypeBlogs = function(val){
+      var url="/blogs/fetchTypeBlogsData";
       var data = {"type":val};
-      $http.post(url,data,function(err,data){
+      httpService.post(url,data,function(err,data){
         if(err){
           console.log("err");
         }
@@ -69,7 +69,7 @@ app.controller("adminCntrl", ['$scope','$http','$routeParams','httpService',
     }
 
     $scope.getPendingBlogs = function(val){
-      var url="/fetchPendingBlogs";
+      var url="/blogs/fetchPendingBlogs";
       var data = {"status":val};
       httpService.post(url,data,function(err,data){
         if (err) {
@@ -81,7 +81,7 @@ app.controller("adminCntrl", ['$scope','$http','$routeParams','httpService',
     }
   
     $scope.deleteBlog = function(val){
-    	var url="/deleteBlogDB";
+    	var url="/blogs/deleteBlogDB";
     	var data={ "blog_id":val};
     	httpService.post(url,data,function(err,data){
         if(err){
@@ -94,7 +94,7 @@ app.controller("adminCntrl", ['$scope','$http','$routeParams','httpService',
 
 
     $scope.updateStatus = function(val1,val2){      	
-    	var url="/updateBlogDB";
+    	var url="/blogs/updateBlogDB";
     	var data={ "blog_id" : val2,
     			   "blog_status" : val1 };
     	
@@ -109,7 +109,7 @@ app.controller("adminCntrl", ['$scope','$http','$routeParams','httpService',
 
 
   $scope.addBlogType = function(){
-    var url="/updateBlogTypeDB";
+    var url="/blogs/updateBlogTypeDB";
 	  var data=$scope.blog
 	 httpService.post(url,data,function(err,data){
     if(err){

@@ -4,6 +4,7 @@ var app = express()
 var Blogs = require('../database/schema/BlogsSchema')
 var viewblog = require('../database/schema/BlogsViewSchema')
 var BlogsType = require('../database/schema/blogTypeSchema')
+var User=require('../database/schema/userSchema')
 var swig_Template = require('../template/template_swig');
 var BlogService = {}
 var BlogCommentArray = {};
@@ -25,17 +26,16 @@ BlogService.uploadBlog = function (req,res){
 var status = 'pending';
 var stringDate = StdTime();
 //console.log(stringDate);
-console.log(req.session.username);
+//console.log(req.session.username);
 var obj = {
 	name:req.session.username,
 	title:req.body.title,
 	content:req.body.comment,
-	type:req.body.type,
+	blogTypeID:req.body.blogTypeID,
 	stringDate:stringDate,
 	status:status
 }
-//res.send(obj);
-//console.log(obj);
+
 var blogs = new Blogs(obj);
 			blogs.save(function(err,data){
 			if(err){
@@ -49,7 +49,6 @@ var blogs = new Blogs(obj);
 					console.log(err);
 					return;
 				}
-				//console.log(blogs)
 				res.send(blogs);
 
 			})
@@ -81,12 +80,13 @@ BlogService.fetchTypes = function(req,res){
 }
 
 BlogService.fetchTypeBlog = function(req,res){
-	
-	Blogs.find({type:req.body.type},function(err,blogs){
+	//console.log(req.body.blogTypeID);
+	Blogs.find({blogTypeID:req.body.blogTypeID},function(err,blogs){
 		if(err){
 			console.log(err);
 			return;
 		}
+		//console.log(blogs,"blogs detail");
 		res.send(blogs);
 	})
 }
@@ -211,7 +211,16 @@ BlogService.FuncUpdateBlogType = function(req,res){
 
 	}
 	
+BlogService.FuncGetUsersDetail = function(req,res){
+	User.findOne({name:req.session.username},function(err,users){
+		if(err){
+			console.log(err);
+				return;
+		}
+ 			//console.log(users);
+ 			res.send(users)
+	})
+}
 
-
-module.exports = BlogService;
+	module.exports = BlogService;
 

@@ -7,7 +7,7 @@ app.controller("dashbordCntrl", ['$scope','$http','$routeParams','httpService',
     $scope.userName = "";
 
      $scope.getUserName = function(){
-      url="/getUsersName";
+      url="/blogs/getUsersName";
       httpService.get(url,function(err,data){
         if(err){
           console.log("error");
@@ -18,7 +18,7 @@ app.controller("dashbordCntrl", ['$scope','$http','$routeParams','httpService',
     }
 
    $scope.ArrayOfBlogTypes = function(){
-      var url="/fetchAllTypes";
+      var url="/blogs/fetchAllTypes";
       httpService.get(url,function(err,data){
         if(err){
           console.log("err");
@@ -30,13 +30,14 @@ app.controller("dashbordCntrl", ['$scope','$http','$routeParams','httpService',
   }
 
      $scope.getAllBlogs=function(){
-      var url="/fetchBlogsData"
+      var url="/blogs/fetchBlogsData"
       httpService.get(url,function(err,data){
         if (err){
           console.log("err");
           return;
         }
         $scope.blogDetail = data;
+        console.log(data);
       });
     }
 
@@ -46,7 +47,7 @@ app.controller("dashbordCntrl", ['$scope','$http','$routeParams','httpService',
     $scope.getUserName();
    
     $scope.addBlog=function(){
-      var url="/addBlogDataToServer";
+      var url="/blogs/addBlogDataToServer";
       var data=$scope.blog
       httpService.post(url,data, function(err,data){
         if(err){
@@ -54,17 +55,19 @@ app.controller("dashbordCntrl", ['$scope','$http','$routeParams','httpService',
           return;
         }
          $scope.blogDetail = data;
+          $scope.getAllBlogs();
       });
     }
 
-   $scope.foodBlogs = function(val){
-      var url="/fetchTypeBlogsData";
-      var data = {"type":val};
-      $http.post(url,data,function(err,data){
+   $scope.fetchTypeBlogs = function(val){
+      var url="/blogs/fetchTypeBlogsData";
+      var data = {"blogTypeID":val};
+      httpService.post(url,data,function(err,data){
         if(err){
           console.log("err");
-        }
+        }else
         $scope.blogDetail = data;
+      
       })
     }
     

@@ -3,71 +3,76 @@ var app = express()
 var path = require("path");
 var bodyParser = require('body-parser');
 var session = require('express-session')
-var LoginService = require('./core/services/loginService');
-var BlogService = require('./core/services/BlogService')
+
+/*var BlogService = require('./core/services/BlogService')*/
 app.use(bodyParser.urlencoded({ extended: true })); //body parser 
 app.use(express.static(__dirname + '/public'));
 app.use(session({resave:true, saveUninitialized:true, secret: 'ssshhhhh'}));//initialing a session 
 app.use(bodyParser.json());
 
-app.get('/',function(req,res){
-	LoginService.sessionValidation(req,res);
-	//LoginService.firstPageRendering(req,res);
-});
+// app.get('/',function(req,res){
+// 	LoginService.sessionValidation(req,res);
+// 	//LoginService.firstPageRendering(req,res);
+// });
 
-var router = express.Router()
+var router=require('./core/routes/UserRoutes.js')
 /*router.use(function (req, res, next) {
-  console.log('Time:', Date.now())
+ // console.log('Time:', Date.now())
   next()
-})
-app.use('/reg', router);
-router.get('/getPage', function(req,res){
-	console.log('get page route called!')
-} );
-router.get('/addUser', function(req,res){
-	console.log('add user route called!')
-} );*/
-
-app.post('/login',function(req,res){
-	LoginService.login(req,res);
-})
-
-app.get('/register',function(req,res)
-{
-	//res.sendFile(path.join(__dirname + '/Public/Register.html'));
-	LoginService.register(req,res);
-})
+})*/
+app.use('/', router);
 
 
-app.post('/register', function(req,res)
-{
-	LoginService.NewRegister(req,res);
+// router.get('/getPage', function(req,res){
+// 	console.log('get page route called!')
+// } );
+// router.get('/addUser', function(req,res){
+// 	console.log('add user route called!')
+// } );
+var blogrouter = require('./core/routes/BlogsRoutes.js')
+
+app.use('/blogs',blogrouter);
+var multer  = require('multer')
+var storage = multer.diskStorage({
+   destination: function(req, file, cb) {
+       cb(null, './core/uploads/')
+   },
+   filename: function(req, file, cb) {
+       cb(null, req.session.username+".jpg")
+   }
 })
 
-app.get('/blogs/', function(req,res)
-{
-	if (req.session.username){
-		res.sendFile(path.join(__dirname + '/public/views/blogs.html'));
-	}else
-	res.redirect('/');
-
+var upload = multer({ storage: storage })
+app.post('/profile/uploadImage',upload.single('file'),function(req,res){
+	console.log(req.file)
 
 })
-app.get('/fetchBlogsData',function(req,res){
+
+/*app.get('/blogs/', function(req,res){
+	if (!req.session.username){
+		res.redirect('/');
+		//res.end();
+	}
+	else
+		//res.sendFile('blogs.html',{ root: path.join(__dirname, '../../public/views/') });
+	res.sendFile(path.join(__dirname,'/public/views/blogs.html'))
+})*/
+
+/*app.get('/fetchBlogsData',function(req,res){
 		//console.log(req.body)
 		//console.log("inside fetchBlogsData")
 		BlogService.fetchBlog(req,res);
-})
+})*/
 
-app.get('/fetchAllTypes',function(req,res){
+/*app.get('/fetchAllTypes',function(req,res){
 	BlogService.fetchTypes(req,res);
-})
+})*/
 
-app.get('/getUsersName', function(req,res){
+/*app.get('/getUsersName', function(req,res){
 	res.send(req.session.username)
-})
-app.post('/addBlogDataToServer',function(req,res){
-	//console.log(req)
+})*/
+/*app.post('/addBlogDataToServer',function(req,res){
+	//console.log(req.body);
 	
 	BlogService.uploadBlog(req,res);
 	//res.send(req.body)
@@ -128,7 +133,7 @@ app.post('/updateBlogDB',function(req,res)
 app.post('/updateBlogTypeDB',function(req,res)
 {
 	BlogService.FuncUpdateBlogType(req,res);
-})
+})*/
 
 app.listen(3000, '0.0.0.0', function () {
   console.log('Example app listening on port 3000!')

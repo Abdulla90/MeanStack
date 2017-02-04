@@ -16,7 +16,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
          <li><a style="color: yellow;">Welcome! {{ userName }} </a></li> 
-        <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Sign-out</a></li>
+        <li><a href="/blogs/logout"><span class="glyphicon glyphicon-log-in"></span> Sign-out</a></li>
       </ul>
     </div>
   </div>
@@ -29,7 +29,7 @@
         <li><a  href="javascript:void(0);"  ng-click="getAllBlogs()">All Blogs</a></li>
       </ul>
       <ul class="nav nav-pills nav-stacked" ng-repeat="blogtype in blogTypes | orderBy:'-'" >
-        <li ><a href="javascript:void(0);" ng-click="foodBlogs(blogtype._id)">{{blogtype.name}}</a></li>
+        <li ><a href="javascript:void(0);" ng-click="fetchTypeBlogs(blogtype._id)">{{blogtype.name}}</a></li>
       </ul><br>
       <div class="input-group">
         <input type="text" class="form-control" placeholder="Search Blog..">
@@ -46,7 +46,7 @@
      <form>
         <div class="form-group">
         <label for="sel1" >Blog Type : </label><br>
-        <select class="form-control" id="sel1" ng-model="blog.type" style="width:30%;" >
+        <select class="form-control" id="sel1" ng-model="blog.blogTypeID" style="width:30%;" >
         <option value="" disabled selected>Type of Blog </option>
         <option ng-repeat="blogtype in blogTypes" value="{{blogtype._id}}">{{blogtype.name}}</option>
         </select>

@@ -1,7 +1,7 @@
 app.controller("blogViewCntrl", ['$scope','$http','$routeParams','httpService',function($scope,$http, $routeParams,httpService) {
 	
 	$scope.getUserDetail = function(){
-	 	var url="/getUsersName";
+	 	var url="/blogs/getUsersName";
 		httpService.get(url,function(err,data){
 	      	if(err){
 	      		console.log("err");
@@ -16,7 +16,7 @@ app.controller("blogViewCntrl", ['$scope','$http','$routeParams','httpService',f
 	$scope.blogDetail = {};
 	$scope.blogcommentdata = {};
 	$scope.getBlogsById =function(){
-	 	var url="/viewsTypeBlogsData";
+	 	var url="/blogs/viewsTypeBlogsData";
 	    var data={id:$routeParams.id};
 		httpService.post(url,data,function(err,data){
 			if(err){
@@ -29,7 +29,7 @@ app.controller("blogViewCntrl", ['$scope','$http','$routeParams','httpService',f
 	$scope.getBlogsById();
 
 	 $scope.addcomment = function(){
-	 	var url="/addCommentToSchema";
+	 	var url="/blogs/addCommentToSchema";
 	 	var data={
 	 		 id:$scope.blogcommentdata.data1._id,
 	 		 comments:$scope.blogDetail.comments

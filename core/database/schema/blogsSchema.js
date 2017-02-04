@@ -4,7 +4,7 @@ var BlogsSchema =  mongoose.Schema({
 	name:String,
 	title:String,
 	content:String,
-	type:String,
+	blogTypeID:String,
 	stringDate:String,
 	status:String
 })

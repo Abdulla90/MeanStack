@@ -22,8 +22,9 @@ app.config(function($routeProvider) {
         templateUrl : "../../templates/blogView.html",
         controller : "blogViewCntrl"
     })
-    .when("/profile",{ templateUrl : "../../templates/profile.html",
-        controller : "blogViewCntrl"
+    .when("/profile",{
+         templateUrl : "../../templates/profile.html",
+        controller : "profileCntrl"
 
     })
 });

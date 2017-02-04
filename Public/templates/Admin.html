@@ -28,7 +28,7 @@
         <li><a  href="javascript:void(0);"  ng-click="getAllBlogs()">All Blogs</a></li>
       </ul>
       <ul class="nav nav-pills nav-stacked" ng-repeat="blogtype in blogTypes | orderBy:'-' " >
-        <li ><a href="javascript:void(0);" ng-click="foodBlogs(blogtype._id)">{{blogtype.name}}</a></li> 
+        <li ><a href="javascript:void(0);" ng-click="fetchTypeBlogs(blogtype._id)">{{blogtype.name}}</a></li> 
 
       </ul><br>
        <div>{{ errMsg }}</div>
