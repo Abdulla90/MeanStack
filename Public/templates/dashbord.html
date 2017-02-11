@@ -31,14 +31,16 @@
       <ul class="nav nav-pills nav-stacked" ng-repeat="blogtype in blogTypes | orderBy:'-'" >
         <li ><a href="javascript:void(0);" ng-click="fetchTypeBlogs(blogtype._id)">{{blogtype.name}}</a></li>
       </ul><br>
+      <form>
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search Blog..">
+        <input type="text" class="form-control" ng-model="searchBlog">
         <span class="input-group-btn">
-          <button class="btn btn-default" type="button">
+          <button class="btn btn-default" type="button" ng-click="funcSearchBlog()">
             <span class="glyphicon glyphicon-search"></span>
           </button>
         </span>
       </div>
+      </form>
     </div>
 
     <div class="col-sm-9">

@@ -7,6 +7,7 @@ app.controller("blogViewCntrl", ['$scope','$http','$routeParams','httpService',f
 	      		console.log("err");
 	      		return;
 	      	}
+	      		console.log(data , "inside user detail");
 	      	  $scope.userName = data;
 	      });
     }

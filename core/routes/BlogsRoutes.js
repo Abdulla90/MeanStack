@@ -55,4 +55,6 @@ Blogrouter.post('/updateBlogTypeDB',BlogService.FuncUpdateBlogType)
 
 Blogrouter.get('/getUsersDetail',BlogService.FuncGetUsersDetail)
 
+Blogrouter.post('/searchBlogByTitle',BlogService.fetchBlogWithTitle)
+
 module.exports = Blogrouter;

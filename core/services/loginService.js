@@ -1,4 +1,4 @@
-	var express = require('express')
+var express = require('express')
 var swig  = require('swig');
 var app = express()
 var User = require('../database/schema/userSchema')
@@ -6,8 +6,9 @@ var swig_Template = require('../template/template_swig');
 var LoginService = {}
 
 LoginService.sessionValidation = function(req,res){
-	//console.log("Initial value of Session" + req.session.username);
-	User.findOne({name:req.session.username},function (err,user){
+	console.log("Initial value of Session" + req.session.username);
+	User.findOne({username:req.session.username},function (err,user){
+		//console.log(user + "inside findone");
 		if(err){
 		console.log(err);
 		return;
@@ -33,7 +34,7 @@ LoginService.sessionValidation = function(req,res){
 //When user submit its useranme and password it will call this function  
 LoginService.login = function(req,res){
 var render = {};
-User.findOne({name:req.body.username, password:req.body.password}, function(err, user) {
+User.findOne({username:req.body.username, password:req.body.password}, function(err, user) {
 	if(err){
 		console.log(err);
 		return;
@@ -47,7 +48,7 @@ User.findOne({name:req.body.username, password:req.body.password}, function(err,
 		swig_Template.pageRendering(render,res) 
 	} else {
 		//console.log( "After validation of user and printing his name: " + user.name);
-		req.session.username = user.name;
+		req.session.username = user.username;
 		if (req.session.username == "admin" ){
 		res.redirect('/blogs/#/admin');
 
@@ -79,9 +80,14 @@ LoginService.NewRegister = function(req,res){
 	var isValid = false;
 	var msg = '';
 	var obj = {
-		name:req.body.username,
+		username:req.body.username,
 		password:req.body.password,
-		email:req.body.email
+		email:req.body.email,
+		firstname:'',
+		lastname:'',
+		companyname:'',
+		imagename:''
+
 	}
 		//console.log(obj.name);
 	if (obj.name == "" || obj.password == "" || obj.email== "" ){

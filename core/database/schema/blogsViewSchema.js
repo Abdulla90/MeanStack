@@ -1,7 +1,7 @@
 var mongoose = require('../db_connection');
 
 var commentSchema =  mongoose.Schema({
-	name:String,
+	username:String,
 	blogId:String,
 	comment:String,
 	stringDate:String

@@ -28,7 +28,7 @@ var stringDate = StdTime();
 //console.log(stringDate);
 //console.log(req.session.username);
 var obj = {
-	name:req.session.username,
+	username:req.session.username,
 	title:req.body.title,
 	content:req.body.comment,
 	blogTypeID:req.body.blogTypeID,
@@ -127,7 +127,7 @@ BlogService.blogscomments = function(req, res){
 BlogService.addblogComments = function(req,res){
 	var stringDate = StdTime();
 	var obj2 = {
-	name:req.session.username,
+	username:req.session.username,
 	blogId:req.body.id,
 	comment:req.body.comments,
 	stringDate:stringDate
@@ -212,15 +212,31 @@ BlogService.FuncUpdateBlogType = function(req,res){
 	}
 	
 BlogService.FuncGetUsersDetail = function(req,res){
-	User.findOne({name:req.session.username},function(err,users){
+	User.findOne({username:req.session.username},function(err,users){
 		if(err){
 			console.log(err);
 				return;
 		}
+				res.send(users)
  			//console.log(users);
- 			res.send(users)
+ 		
 	})
 }
 
+BlogService.fetchBlogWithTitle = function(req,res){
+//console.log("inside fetchBlog");
+//console.log(req.body);
+//res.send(req.body)
+Blogs.find({title:req.body.blogsTitle},function(err,blogs){
+	if(err){
+		console.log(err);
+		return;
+	}
+	//console.log(blogs)
+	res.send(blogs)
+})
+
+}
 	module.exports = BlogService;
+
 

@@ -3,7 +3,7 @@ app.controller("dashbordCntrl", ['$scope','$http','$routeParams','httpService',
     $scope.blog = {};
     $scope.blogDetail=[];
     $scope.blogTypes = {};
-
+    $scope.searchBlog = "";
     $scope.userName = "";
 
      $scope.getUserName = function(){
@@ -71,5 +71,19 @@ app.controller("dashbordCntrl", ['$scope','$http','$routeParams','httpService',
       })
     }
     
+$scope.funcSearchBlog = function(){
+  var url = "/blogs/searchBlogByTitle"
+  var data = {
+    'blogsTitle' :$scope.searchBlog
+  }
 
+  console.log(data);
+ httpService.post(url,data,function(err,data){
+        if(err){
+          console.log(err);
+        }else
+        $scope.blogDetail = data;
+      
+      })
+}
 }]);
